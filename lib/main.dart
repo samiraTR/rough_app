@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:google_nav_project/splash_screen.dart';
+import 'package:google_nav_project/fourth_page.dart';
+import 'package:google_nav_project/home_page.dart';
+import 'package:google_nav_project/second_page.dart';
+import 'package:google_nav_project/third_page.dart';
 import 'package:line_icons/line_icons.dart';
 
 void main() => runApp(MaterialApp(
@@ -11,7 +14,7 @@ void main() => runApp(MaterialApp(
     theme: ThemeData(
       primaryColor: Colors.grey[800],
     ),
-    home: SplashScreen()));
+    home: Example()));
 
 class Example extends StatefulWidget {
   @override
@@ -19,26 +22,15 @@ class Example extends StatefulWidget {
 }
 
 class _ExampleState extends State<Example> {
+  PageController pageController = PageController();
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Likes',
-      style: optionStyle,
-    ),
-    Text(
-      'Search',
-      style: optionStyle,
-    ),
-    Text(
-      'Profile',
-      style: optionStyle,
-    ),
+    HomePage(),
+    SecondPage(),
+    ThirdPage(),
+    FourthPage()
   ];
 
   @override
@@ -49,7 +41,19 @@ class _ExampleState extends State<Example> {
         elevation: 20,
         title: const Text('GoogleNavBar'),
       ),
-      body: Center(
+      body:
+          //  PageView(
+          //   controller: pageController,
+          //   children: _widgetOptions,
+          //   onPageChanged: (v) {
+          //     _selectedIndex = v;
+
+          //     _widgetOptions.animateToPage;
+          //   },
+
+          // ),
+
+          Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: Container(
@@ -66,32 +70,48 @@ class _ExampleState extends State<Example> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
             child: GNav(
-              rippleColor: Color.fromARGB(255, 189, 69, 69),
+              rippleColor: const Color.fromARGB(255, 189, 69, 69),
               hoverColor: Colors.amber[100]!,
               gap: 8,
               activeColor: Colors.blue,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              duration: Duration(milliseconds: 400),
-              tabBackgroundColor: Color.fromARGB(255, 99, 10, 110),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: const Duration(milliseconds: 400),
+              tabBackgroundColor: const Color.fromARGB(255, 99, 10, 110),
               color: Colors.green,
-              tabs: [
+              tabs: const [
                 GButton(
                   icon: LineIcons.home,
                   iconActiveColor: Colors.black,
                   iconSize: 24,
                   text: 'Home',
+                  // onPressed: () {
+                  //   Navigator.push(context,
+                  //       MaterialPageRoute(builder: (context) => HomePage()));
+                  // },
                 ),
                 GButton(
                   icon: LineIcons.heart,
                   text: 'Likes',
+                  // onPressed: () {
+                  //   Navigator.push(context,
+                  //       MaterialPageRoute(builder: (context) => SecondPage()));
+                  // },
                 ),
                 GButton(
                   icon: LineIcons.search,
                   text: 'Search',
+                  // onPressed: () {
+                  //   Navigator.push(context,
+                  //       MaterialPageRoute(builder: (context) => ThirdPage()));
+                  // },
                 ),
                 GButton(
                   icon: LineIcons.user,
                   text: 'Profile',
+                  // onPressed: () {
+                  //   Navigator.push(context,
+                  //       MaterialPageRoute(builder: (context) => FourthPage()));
+                  // },
                 ),
               ],
               selectedIndex: _selectedIndex,
